@@ -29,17 +29,25 @@
 
 ## 📸 Screenshots
 
-| Overview | Real-Time Chat |
+| Overview | Dashboard |
 |---|---|
-| ![Overview](screenshots/01-overview.png) | ![Chat](screenshots/02-chat.png) |
+| ![Overview](screenshots/overview.png) | ![Dashboard](screenshots/dashboard.png) |
 
-| Redis Cache (MISS then HIT) | Email Queue |
+| Technologies | Real-Time Chat |
 |---|---|
-| ![Cache](screenshots/03-cache-hit-miss.png) | ![Queue](screenshots/04-email-queue.png) |
+| ![Technologies](screenshots/technologies.png) | ![Chat](screenshots/chat-server.png) |
 
-| AI Analyzer | Product Search with Filters |
+| Redis Cache: MISS | Redis Cache: HIT |
 |---|---|
-| ![AI](screenshots/05-ai-analyzer.png) | ![Products](screenshots/06-product-filters.png) |
+| ![Cache MISS](screenshots/product-miss.png) | ![Cache HIT](screenshots/product-hit.png) |
+
+| Product Search with Category Filter | Email Queue |
+|---|---|
+| ![Category filter](screenshots/product-category.png) | ![Email queue](screenshots/email-queue.png) |
+
+| AI Analyzer: Positive | AI Analyzer: Negative |
+|---|---|
+| ![AI positive](screenshots/ai-analyser-positive.png) | ![AI negative](screenshots/ai-analyser-negative.png) |
 
 ## 🧱 Architecture
 
@@ -114,8 +122,8 @@ Passwords hashed with bcrypt · secrets only in `.env` · Helmet secure headers 
 src/        server.js, config/, middleware/, queues/, workers/, routes/, services/, sockets/
 prisma/     schema.prisma, seed.js
 public/     index.html, style.css, app.js (dashboard)
-docs/       Project overview document
-screenshots/
+screenshots/   project screenshots
+Growfinix_SmartHub_Project_Overview.docx   project overview document
 ```
 
 ## 🔭 Future scope
