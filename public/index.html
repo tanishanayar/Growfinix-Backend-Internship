@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Growfinix SmartHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <span class="logo">G</span>
+    <div><b>Growfinix</b><small>SmartHub Backend</small></div>
+  </div>
+
+  <div class="nav-label">MENU</div>
+  <nav>
+    <button class="nav active" data-tab="overview"><i style="--c:#6366f1">📊</i>Overview</button>
+    <button class="nav" data-tab="chat"><i style="--c:#06b6d4">💬</i>Live Chat<em>T1</em></button>
+    <button class="nav" data-tab="products"><i style="--c:#f59e0b">🛒</i>Products<em>T2·T5</em></button>
+    <button class="nav" data-tab="register"><i style="--c:#ec4899">✉️</i>Email Queue<em>T3</em></button>
+    <button class="nav" data-tab="ai"><i style="--c:#10b981">🤖</i>AI Analyzer<em>T4</em></button>
+  </nav>
+
+  <div class="side-card">
+    <b>Month 2 Internship</b>
+    <span>Advanced Data Flow &amp; Architecture</span>
+    <div class="chips"><u>Node.js</u><u>Redis</u><u>PostgreSQL</u></div>
+  </div>
+</aside>
+
+<div class="shell">
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <div>
+      <h2 id="page-title">Overview</h2>
+      <small id="page-sub">Everything about this project in one place</small>
+    </div>
+    <div class="top-right">
+      <span class="pill" id="pill-server"><i class="dot"></i>Server</span>
+      <span class="pill" id="pill-db"><i class="dot"></i>Database</span>
+      <span class="pill" id="pill-redis"><i class="dot"></i>Redis</span>
+      <button class="icon-btn" id="theme-btn" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+
+  <main>
+
+  <!-- ================= OVERVIEW ================= -->
+  <section id="overview" class="tab active">
+
+    <div class="hero">
+      <div class="hero-text">
+        <span class="tag">Growfinix Backend Development Internship · Month 2</span>
+        <h1>Growfinix <span>SmartHub</span></h1>
+        <p>One backend that brings together <b>real-time chat</b>, <b>Redis caching</b>, <b>background email jobs</b>, <b>AI text analysis</b> and <b>advanced product search</b>. Every part of this page is powered by the live server you are connected to.</p>
+        <div class="hero-btns">
+          <button class="btn light" data-go="products">Try Product Search</button>
+          <button class="btn outline" data-go="chat">Open Chat</button>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="orb o1"></div><div class="orb o2"></div>
+        <div class="float f1">⚡ Redis</div><div class="float f2">🐘 PostgreSQL</div><div class="float f3">🟢 Node.js</div><div class="float f4">🤖 AI</div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span>Server</span><b id="st-server">…</b><small id="st-uptime">uptime –</small></div>
+      <div class="stat"><span>PostgreSQL (Neon)</span><b id="st-db">…</b><small>stores users &amp; products</small></div>
+      <div class="stat"><span>Redis</span><b id="st-redis">…</b><small>cache &amp; queue storage</small></div>
+      <div class="stat"><span>Cache Hit Rate</span><b id="st-hit">…</b><small id="st-hm">hits 0 · misses 0</small></div>
+    </div>
+
+    <h3 class="section-title">How one request travels <small>(the architecture)</small></h3>
+    <div class="flow">
+      <div class="node n-blue"><b>🌐 Browser</b><small>This dashboard</small></div>
+      <div class="arrow">➜</div>
+      <div class="node n-purple"><b>🚀 Express API</b><small>Node.js server</small></div>
+      <div class="arrow">➜</div>
+      <div class="branches">
+        <div class="node n-red"><b>⚡ Redis Cache</b><small>fast memory</small></div>
+        <div class="node n-green"><b>🐘 PostgreSQL</b><small>via Prisma ORM</small></div>
+        <div class="node n-orange"><b>📬 BullMQ Queue → Worker → ✉️ Email</b><small>background jobs</small></div>
+        <div class="node n-teal"><b>🤖 AI Service</b><small>key hidden on server</small></div>
+      </div>
+    </div>
+    <p class="note">💬 The chat uses a separate always-open <b>WebSocket</b> line (Socket.io) between the browser and the server.</p>
+
+    <h3 class="section-title">The 5 tasks explained <small>(simple words)</small></h3>
+    <div class="tasks">
+
+      <article class="task t1">
+        <div class="t-head"><span class="t-num">1</span><div><h4>Real-Time Chat Server</h4><small>WebSockets · Socket.io</small></div></div>
+        <p><b>What it does:</b> People join a room and messages appear for everyone instantly, with no page refresh.</p>
+        <p><b>How it works:</b> A normal web request asks once and gets one answer. A WebSocket stays open like a phone call, so the server can push new messages to everybody in the room at any moment.</p>
+        <div class="badges"><span>Node.js</span><span>Socket.io</span></div>
+        <div class="eps"><code>join_room</code><code>send_message</code><code>typing</code></div>
+        <button class="btn small" data-go="chat">Try it →</button>
+      </article>
+
+      <article class="task t2">
+        <div class="t-head"><span class="t-num">2</span><div><h4>Performance with Redis Caching</h4><small>Redis · middleware</small></div></div>
+        <p><b>What it does:</b> Makes repeated searches many times faster.</p>
+        <p><b>How it works:</b> The first request reads the slow database (<b>MISS</b>) and the answer is saved in Redis memory. The next same request is served straight from Redis (<b>HIT</b>) in a few milliseconds. The cache is cleared automatically when a new product is added.</p>
+        <div class="badges"><span>Redis</span><span>ioredis</span><span>Express middleware</span></div>
+        <div class="eps"><code>X-Cache: HIT / MISS</code><code>DELETE /api/cache</code></div>
+        <button class="btn small" data-go="products">Try it →</button>
+      </article>
+
+      <article class="task t3">
+        <div class="t-head"><span class="t-num">3</span><div><h4>Background Jobs &amp; Queues</h4><small>BullMQ · Nodemailer</small></div></div>
+        <p><b>What it does:</b> Sends a welcome email after registration without making the user wait.</p>
+        <p><b>How it works:</b> The API saves the user, drops an “email job” into a queue and replies at once. A separate worker picks the job up and sends the email. If sending fails, it retries 3 times.</p>
+        <div class="badges"><span>BullMQ</span><span>Redis</span><span>Nodemailer</span><span>bcrypt</span></div>
+        <div class="eps"><code>POST /api/auth/register</code><code>GET /api/auth/email-log</code></div>
+        <button class="btn small" data-go="register">Try it →</button>
+      </article>
+
+      <article class="task t4">
+        <div class="t-head"><span class="t-num">4</span><div><h4>AI API Integration</h4><small>Sentiment · Summary</small></div></div>
+        <p><b>What it does:</b> Reads a paragraph and tells you if it is positive or negative, plus a short summary.</p>
+        <p><b>How it works:</b> The browser sends text to our server. The server talks to the AI service (OpenAI or HuggingFace) using a secret key kept in <code>.env</code>, so the key is never exposed. Without a key, a built-in analyzer is used.</p>
+        <div class="badges"><span>OpenAI API</span><span>HuggingFace</span><span>Rate limiting</span></div>
+        <div class="eps"><code>POST /api/ai/analyze</code></div>
+        <button class="btn small" data-go="ai">Try it →</button>
+      </article>
+
+      <article class="task t5">
+        <div class="t-head"><span class="t-num">5</span><div><h4>Advanced Database Queries</h4><small>PostgreSQL · Prisma ORM</small></div></div>
+        <p><b>What it does:</b> A product search with pages, sorting and filters.</p>
+        <p><b>How it works:</b> The database does the hard work. Filters pick matching rows, sorting orders them and <code>skip</code> / <code>take</code> (offset and limit) return only 10 products per page, so the browser stays fast.</p>
+        <div class="badges"><span>PostgreSQL</span><span>Prisma ORM</span><span>Neon Cloud</span></div>
+        <div class="eps"><code>GET /api/products</code><code>GET /api/products/categories</code></div>
+        <button class="btn small" data-go="products">Try it →</button>
+      </article>
+
+    </div>
+
+    <h3 class="section-title">Technologies used <small>(and why)</small></h3>
+    <div class="techs">
+      <div class="tech"><i>🟢</i><b>Node.js</b><span>Runs JavaScript on the server.</span></div>
+      <div class="tech"><i>🚂</i><b>Express</b><span>Creates the API routes.</span></div>
+      <div class="tech"><i>🔌</i><b>Socket.io</b><span>Real-time WebSocket chat.</span></div>
+      <div class="tech"><i>⚡</i><b>Redis</b><span>Super-fast memory store for cache and queue.</span></div>
+      <div class="tech"><i>📬</i><b>BullMQ</b><span>Job queue for background work.</span></div>
+      <div class="tech"><i>✉️</i><b>Nodemailer</b><span>Sends the emails.</span></div>
+      <div class="tech"><i>🐘</i><b>PostgreSQL</b><span>Main relational database (on Neon).</span></div>
+      <div class="tech"><i>🔷</i><b>Prisma ORM</b><span>Talks to the database with simple code.</span></div>
+      <div class="tech"><i>🤖</i><b>OpenAI / HuggingFace</b><span>AI models for sentiment and summary.</span></div>
+      <div class="tech"><i>🔐</i><b>bcrypt</b><span>Hashes passwords safely.</span></div>
+      <div class="tech"><i>🛡️</i><b>Helmet · CORS · Rate-limit</b><span>Security and abuse protection.</span></div>
+      <div class="tech"><i>🧰</i><b>VS Code · Git · GitHub</b><span>Development tools.</span></div>
+    </div>
+
+    <h3 class="section-title">API reference</h3>
+    <div class="table-wrap"><table class="api-table">
+      <thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><span class="m get">GET</span></td><td><code>/api/health</code></td><td>Server, database and Redis status plus cache hit rate</td></tr>
+        <tr><td><span class="m get">GET</span></td><td><code>/api/products</code></td><td>Search with page, limit, sort, order, category, minPrice, maxPrice, search</td></tr>
+        <tr><td><span class="m get">GET</span></td><td><code>/api/products/categories</code></td><td>List categories with product counts</td></tr>
+        <tr><td><span class="m post">POST</span></td><td><code>/api/products</code></td><td>Add a product and clear the cache</td></tr>
+        <tr><td><span class="m post">POST</span></td><td><code>/api/auth/register</code></td><td>Register a user and queue the welcome email</td></tr>
+        <tr><td><span class="m get">GET</span></td><td><code>/api/auth/email-log</code></td><td>Queue counts and recently sent emails</td></tr>
+        <tr><td><span class="m post">POST</span></td><td><code>/api/ai/analyze</code></td><td>Sentiment analysis and summary of a text</td></tr>
+        <tr><td><span class="m del">DELETE</span></td><td><code>/api/cache</code></td><td>Clear all Redis cache entries</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="row" style="margin-top:18px">
+      <button class="btn ghost" id="clear-cache">🧹 Clear Redis cache</button>
+      <span id="cache-msg" class="muted"></span>
+    </div>
+  </section>
+
+  <!-- ================= CHAT ================= -->
+  <section id="chat" class="tab">
+    <div class="how"><b>💡 How it works:</b> Open this page in <b>two browser tabs</b>, join the same room with different names and chat. Messages travel through an always-open WebSocket, so they appear instantly.</div>
+    <div class="panel">
+      <div class="row wrap">
+        <input id="chat-name" placeholder="Your name" maxlength="20" />
+        <select id="chat-room"><option>general</option><option>backend</option><option>random</option></select>
+        <button class="btn" id="chat-join">Join room</button>
+        <span id="room-count" class="pill-soft">Not joined</span>
+      </div>
+      <div class="chatbox" id="chat-log"><div class="empty">👋 Enter your name and join a room to start chatting.</div></div>
+      <div id="typing" class="typing"></div>
+      <div class="row">
+        <input id="chat-text" placeholder="Type a message and press Enter…" disabled />
+        <button class="btn" id="chat-send" disabled>Send ➤</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRODUCTS ================= -->
+  <section id="products" class="tab">
+    <div class="how"><b>💡 How it works:</b> Click <b>Search</b> twice. The first time the badge shows <span class="badge miss">MISS</span> (read from the database). The second time it shows <span class="badge hit">HIT</span> (served from Redis) with a much smaller time.</div>
+    <div class="panel">
+      <div class="filters">
+        <input id="p-search" placeholder="🔍 Search product name…" />
+        <select id="p-category"><option value="">All categories</option></select>
+        <input id="p-min" type="number" placeholder="Min ₹" class="short" />
+        <input id="p-max" type="number" placeholder="Max ₹" class="short" />
+        <select id="p-sort">
+          <option value="createdAt">Sort: Newest</option><option value="price">Sort: Price</option>
+          <option value="rating">Sort: Rating</option><option value="name">Sort: Name</option>
+        </select>
+        <select id="p-order"><option value="desc">High → Low</option><option value="asc">Low → High</option></select>
+        <button class="btn" id="p-go">Search</button>
+      </div>
+      <div class="row between">
+        <span id="p-meta" class="muted">–</span>
+        <span id="p-badge" class="badge">–</span>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>#</th><th>Product</th><th>Category</th><th>Price</th><th>Rating</th><th>Added</th></tr></thead>
+        <tbody id="p-body"></tbody>
+      </table></div>
+      <div class="row center">
+        <button class="btn ghost" id="p-prev">← Prev</button>
+        <span id="p-page" class="pill-soft">Page 1</span>
+        <button class="btn ghost" id="p-next">Next →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= AI ================= -->
+  <section id="ai" class="tab">
+    <div class="how"><b>💡 How it works:</b> Your text goes to our <b>backend</b>, and the backend talks to the AI service. The browser never sees the API key. Type or paste any paragraph (at least 10 characters).</div>
+    <div class="panel">
+      <textarea id="ai-text" rows="6" placeholder="Paste a review, article or paragraph here…"></textarea>
+      <div class="row wrap">
+        <button class="btn" id="ai-go">✨ Analyze</button>
+        <button class="btn ghost" id="ai-sample">Positive sample</button>
+        <button class="btn ghost" id="ai-sample2">Negative sample</button>
+        <span id="ai-status" class="muted"></span>
+      </div>
+    </div>
+    <div class="ai-out" id="ai-out" hidden>
+      <div class="panel sentiment">
+        <span class="muted">Sentiment</span>
+        <div class="big-emoji" id="ai-emoji">😐</div>
+        <b id="ai-sent">–</b>
+        <div class="meter"><div id="ai-meter"></div></div>
+        <small id="ai-sent-p" class="muted"></small>
+      </div>
+      <div class="panel">
+        <span class="muted">Summary</span>
+        <p id="ai-sum" class="summary"></p>
+        <small id="ai-sum-p" class="muted"></small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REGISTER ================= -->
+  <section id="register" class="tab">
+    <div class="how"><b>💡 How it works:</b> When you click Register the API replies in a few milliseconds. The welcome email is sent <b>later by a background worker</b>, so the user never waits for it.</div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Create account</h3>
+        <div class="stack">
+          <input id="r-name" placeholder="Full name" />
+          <input id="r-email" type="email" placeholder="Email address" />
+          <input id="r-pass" type="password" placeholder="Password (min 6 characters)" />
+          <button class="btn" id="r-go">Register</button>
+        </div>
+        <div id="r-result" class="result" hidden></div>
+      </div>
+      <div class="panel">
+        <h3>What is happening behind the scenes</h3>
+        <ol class="steps" id="steps">
+          <li id="step-1"><i>1</i><div><b>Request received</b><small>Express validates the data</small></div></li>
+          <li id="step-2"><i>2</i><div><b>Saved in PostgreSQL</b><small>Password is hashed with bcrypt</small></div></li>
+          <li id="step-3"><i>3</i><div><b>Job added to queue</b><small>BullMQ stores it in Redis, API replies now</small></div></li>
+          <li id="step-4"><i>4</i><div><b>Worker sends the email</b><small>Nodemailer delivers it in the background</small></div></li>
+        </ol>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="row between"><h3 style="margin:0">Email queue activity</h3><button class="btn ghost small" id="r-refresh">Refresh</button></div>
+      <div id="q-counts" class="qcounts"></div>
+      <div id="q-items"></div>
+    </div>
+  </section>
+
+  </main>
+  <footer>© 2026 Growfinix SmartHub · Built during the Growfinix Backend Development Internship</footer>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
